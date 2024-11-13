@@ -1,11 +1,10 @@
 import { Router } from "express";
 import { sid } from "../controllers/organizationsController";
-import { verifyUserJWT } from "../middlewares/authMiddleware";
 import { getAllOrganizations } from "../controllers/organizationsController";
 
 const router = Router();
 
-router.get("/", verifyUserJWT, getAllOrganizations);
+router.get("/", getAllOrganizations);
 
 router.post("/sid", sid);
 

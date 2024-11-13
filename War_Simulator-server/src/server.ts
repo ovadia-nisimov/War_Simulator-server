@@ -42,6 +42,10 @@ app.use("/api/missiles", missilesRoutes);
 
 
 
-httpServer.listen(PORT, () => {
+// httpServer.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}...`);
+// });
+
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}...`);
 });
