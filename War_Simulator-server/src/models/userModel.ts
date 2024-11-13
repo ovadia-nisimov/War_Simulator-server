@@ -5,7 +5,7 @@ export interface IUser extends Document {
     username: string;
     password: string;
     organization: string;
-    area: string;
+    area?: string;
     missiles: { type: string; quantity: number }[];
     budget: number;
 }
@@ -14,7 +14,7 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true, minlength: 6 },
     organization: { type: String, required: true },
-    area: { type: String, required: true },
+    area: { type: String },
     missiles: [
         {
             type: { type: String, required: true },

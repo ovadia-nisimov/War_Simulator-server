@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import usersRoutes from "./routes/usersRoutes";
 // import adminRoutes from "./routes/adminRoutes";
-// import votesRoutes from "./routes/votesRoutes";
+import missilesRoutes from "./routes/missilesRoutes";
 import organizationsRoutes from "./routes/organizationsRoutes";
 import { connectDB } from "./config/db";
 import cors from "cors";
@@ -38,8 +38,8 @@ connectDB();
 
 app.use("/api/users", usersRoutes);
 app.use("/api/organizations", organizationsRoutes);
-// app.use("/api/admin", adminRoutes);
-// app.use("/api/votes", votesRoutes);
+app.use("/api/missiles", missilesRoutes);
+
 
 
 httpServer.listen(PORT, () => {
