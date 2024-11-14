@@ -1,5 +1,3 @@
-// src/models/userModel.ts
-
 import { Model, model, Schema, Types, Document } from "mongoose";
 import bcrypt from "bcrypt";
 
@@ -12,7 +10,7 @@ export interface IUser extends Document {
   username: string;
   password: string;
   organization: string;
-  region?: string; // for IDF
+  region?: string; 
   userMissiles: IMissileUserType[];
   userBudget: number;
 }

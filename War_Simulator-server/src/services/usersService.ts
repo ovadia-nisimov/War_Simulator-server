@@ -1,5 +1,3 @@
-// src/services/userService.ts
-
 import { RegisterDTO, LoginDTO } from "../DTO/userDTO";
 import Organization from "../models/organizationModel";
 import User, { IUser } from "../models/userModel";

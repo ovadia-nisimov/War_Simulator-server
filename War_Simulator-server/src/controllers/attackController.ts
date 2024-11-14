@@ -1,5 +1,3 @@
-// src/controllers/attackController.ts
-
 import { Request, Response } from "express";
 import { createAttackService, getAttacksByUserService, getAttacksByRegionServise, updateAttackStatusService } from "../services/attackService";
 import { AttackCreationData } from "../DTO/attackDTO";

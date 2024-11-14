@@ -1,5 +1,3 @@
-// src/models/missileModel.ts
-
 import { model, Schema, Document, Model } from "mongoose";
 
 export interface IMissile extends Document {

@@ -1,5 +1,3 @@
-// src/controllers/userController.ts
-
 import { Request, Response } from "express";
 import { LoginDTO, RegisterDTO } from "../DTO/userDTO";
 import { loginUserService, registerUserService } from "../services/usersService";

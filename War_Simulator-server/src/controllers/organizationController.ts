@@ -1,5 +1,3 @@
-// src/controllers/organizationController.ts
-
 import { Request, Response } from "express";
 import { fetchOrganizationNames } from "../services/organizationsService";
 

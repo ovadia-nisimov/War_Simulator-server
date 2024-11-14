@@ -1,5 +1,3 @@
-// src/models/organizationModel.ts
-
 import { Model, model, Schema } from "mongoose";
 
 export interface IResource extends Document {

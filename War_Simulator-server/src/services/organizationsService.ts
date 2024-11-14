@@ -1,5 +1,3 @@
-// src/services/organizationService.ts
-
 import Organization from "../models/organizationModel";
 
 export const fetchOrganizationNames = async (): Promise<string[]> => {

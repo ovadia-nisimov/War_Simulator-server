@@ -1,5 +1,3 @@
-// src/utils/initializeDataDirect.ts
-
 import Missile from '../models/missileModel';
 import Organization from '../models/organizationModel';
 import User from '../models/userModel';

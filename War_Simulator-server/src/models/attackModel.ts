@@ -1,5 +1,3 @@
-// src/models/attackModel.ts
-
 import { model, Schema, Document, Model } from "mongoose";
 
 export interface IAttack extends Document {

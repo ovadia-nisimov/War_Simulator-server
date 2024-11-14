@@ -1,6 +1,3 @@
-// src/routes/organizationRouter.ts
-
-
 import express from "express";
 import { getOrganizationNames } from "../controllers/organizationController";
 
