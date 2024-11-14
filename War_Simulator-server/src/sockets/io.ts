@@ -2,28 +2,24 @@
 
 import { Socket } from "socket.io";
 import { io } from "../server";
+import { IAttack } from "../models/attackModel";
 import jwt from "jsonwebtoken";
+import { AttackCreationData } from "../DTO/attackDTO";
+import { createAttackService } from "../services/attackService";
 
-interface UserPayload {
-    id: string;
-    username: string;
-}
 
 export const handleSocketConnection = (client: Socket) => {
-    const token = client.handshake.auth.token as string;
-
-    if (!token) {
-        client.disconnect();
-        return;
-    }
-
     try {
-        const payload = jwt.verify(token, process.env.JWT_SECRET!) as UserPayload;
-
-        (client as any).user = payload;
-
-        client.on("attackLaunch", (attackData) => {
-            io.emit("attackLaunched", { ...attackData, attackerId: payload.id });
+        client.on("attackLaunch", async (attackData) => {
+            try {
+                const newAttack = await createAttackService(attackData);
+                io.emit("attackLaunched", newAttack);
+                console.log("Attack launched:", newAttack);
+                
+            } catch (error) {
+                console.error("Error creating attack:", error);
+                client.emit("error", { message: "Failed to create attack" });
+            }
         });
 
     } catch (error) {
