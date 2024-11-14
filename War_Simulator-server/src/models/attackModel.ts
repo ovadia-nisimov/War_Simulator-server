@@ -9,6 +9,7 @@ export interface IAttack extends Document {
   attackerId: string;
   interceptedId?: string;
   intercepted: boolean;
+  status: string;
 }
 
 const AttackSchema = new Schema<IAttack>({
@@ -18,6 +19,7 @@ const AttackSchema = new Schema<IAttack>({
   attackerId: { type: String, required: true },
   interceptedId: { type: String },
   intercepted: { type: Boolean, default: false },
+  status: { type: String, default: "Launched" },
 });
 
 const Attack : Model<IAttack> = model<IAttack>("Attack", AttackSchema);
