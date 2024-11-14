@@ -1,21 +1,22 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+// src/middleware/authMiddleware.ts
 
+import { NextFunction, Request, Response } from "express";
+import jwt, { JsonWebTokenError } from "jsonwebtoken";
 
-export const verifyUserJWT = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.authorization?.split(' ')[1];
-
-  if (!token) {
-     res.status(401).json({ error: 'Authorization token is missing' });
-     return
-  }
+export default (req: Request, res: Response, next: NextFunction) => {
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-    req.body.user = decoded as jwt.JwtPayload;
+    const token = req.headers["authorization"]?.split(" ")[1];
+    if (!token) {
+      res.status(401).json({ error: "Token must be provided" });
+      return;
+    }
+    console.log(token);
+    
+    const payload = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+    (req as any).user = payload;
+
     next();
-  } catch (error) {
-     res.status(401).json({ error: 'Invalid or expired token' });
-    return
+  } catch (err) {
+    res.status(401).json({ error: "Invalid token", details: err });
   }
 };
-

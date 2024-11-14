@@ -1,21 +1,28 @@
-import mongoose, { Schema, Types, Document, Model } from "mongoose";
+// src/models/organizationModel.ts
 
+import { Model, model, Schema } from "mongoose";
 
-export interface IOrganization extends Document {
-    name: string;
-    resources: { name: string; amount: number }[];
-    budget: number;
+export interface IResource extends Document {
+  name: string;
+  amount: number;
 }
 
-const organizationSchema: Schema<IOrganization> = new Schema<IOrganization>({
-    name: { type: String, required: true, unique: true },
-    resources: [
-        {
-            name: { type: String, required: true },
-            amount: { type: Number, required: true }
-        }
-    ],
-    budget: { type: Number, required: true, default: 0 }
+export interface IOrganization extends Document {
+  name: string;
+  resources: IResource[];
+  budget: number;
+}
+
+const ResourceSchema: Schema = new Schema<IResource>({
+  name: { type: String, required: true },
+  amount: { type: Number, required: true },
 });
 
-export const Organization: Model<IOrganization> = mongoose.model<IOrganization>('Organization', organizationSchema);
+const OrganizationSchema: Schema = new Schema<IOrganization>({
+  name: { type: String, required: true, unique: true },
+  resources: { type: [ResourceSchema], required: true },
+  budget: { type: Number, required: true },
+});
+
+const Organization: Model<IOrganization> = model<IOrganization>("Organization", OrganizationSchema);
+export default Organization;

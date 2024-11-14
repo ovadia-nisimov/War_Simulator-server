@@ -1,6 +1,8 @@
-import {Attack} from "../models/attackModel";
-import {User} from "../models/userModel";
-import {Missile} from "../models/missileModel";
+// src/services/attackService.ts
+
+import Attack from "../models/attackModel";
+import User from "../models/userModel";
+import Missile from "../models/missileModel";
 import { AttackCreationData } from "../DTO/attackDTO";
 
 export const createAttackService = async (attackData: AttackCreationData) => {
@@ -9,8 +11,8 @@ export const createAttackService = async (attackData: AttackCreationData) => {
     
     console.log("User found:", user);
 
-    const weapon = user.missiles.find(
-        (resource) => resource.type === attackData.name
+    const weapon = user.userMissiles.find(
+        (resource) => resource.name === attackData.name
     );
 
     if (!weapon) {
@@ -18,7 +20,7 @@ export const createAttackService = async (attackData: AttackCreationData) => {
         throw new Error("Weapon not found");
     }
 
-    if (weapon.quantity < 1) {
+    if (weapon.amount < 1) {
         console.error("Not enough resources for weapon:", weapon);
         throw new Error("Not enough resources");
     }

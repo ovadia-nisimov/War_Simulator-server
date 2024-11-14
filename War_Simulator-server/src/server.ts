@@ -1,48 +1,45 @@
-import express, { Express } from "express";
-import dotenv from "dotenv";
-import usersRoutes from "./routes/usersRoutes";
-import missilesRoutes from "./routes/missilesRoutes";
-import organizationsRoutes from "./routes/organizationsRoutes";
-import { connectDB } from "./config/db";
-import cors from "cors";
-import http from "http";
-import { Server } from "socket.io";
-import { handleSocketConnection } from "./sockets/io";
-import attacksRoutes from './routes/attackRoutes';
+// src/server.ts
 
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import { connectDB } from "./config/db";
+import userRouter from "./routes/userRouter"
+import organizationRouter from "./routes/organizationRouter"
+import attackRouter from "./routes/attackRouter"
+import http from 'http'
+import { Server } from 'socket.io'
+import { handleSocketConnection } from './sockets/io'
+import { initializeDataDirect } from "./utils/initializeDataDirect";
 
 dotenv.config();
 
-const app: Express = express();
-const httpServer = http.createServer(app);
-export const io = new Server(httpServer, {
-  cors: {
-    origin: "*",
-    methods: "*"
-  },
-});
-io.on("connection", handleSocketConnection);
 
+
+const PORT = process.env.PORT || 3000;
+const app = express();
+
+const httpServer:http.Server = http.createServer(app)
+export const io = new Server(httpServer,{
+    cors:{
+        origin: '*',
+        methods:'*'
+    }
+})
+
+io.on('connection', handleSocketConnection)
 
 app.use(cors());
-const PORT = process.env.PORT || 4000;
-
-
 app.use(express.json());
-
 
 connectDB();
 
-
-app.use("/api/users", usersRoutes);
-app.use("/api/organizations", organizationsRoutes);
-app.use("/api/missiles", missilesRoutes);
-app.use("/api/attacks", attacksRoutes);
-
-
+app.use("/api/users", userRouter);
+app.use("/api/organizations", organizationRouter);
+app.use("/api/attacks", attackRouter);
 
 httpServer.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}...`);
+    console.log(`Server is running on port ${PORT}`);
 });
 
-
+export default app;

@@ -1,11 +1,13 @@
-import { connect } from 'mongoose';
+// src/config/db.ts
 
-export const connectDB = async (): Promise<void> => {
+import mongoose from "mongoose";
+
+export const connectDB = async () => {
   try {
-    const uri = process.env.MONGODB_URI as string;
-    await connect(uri);
-    console.log('MongoDB connected');
+    const conn = await mongoose.connect(process.env.MONGO_URI || "");
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error('MongoDB connection error:', error);
+    console.log(error);
+    process.exit(1);
   }
 };

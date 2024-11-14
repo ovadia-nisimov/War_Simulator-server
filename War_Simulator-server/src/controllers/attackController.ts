@@ -1,6 +1,9 @@
+// src/controllers/attackController.ts
+
 import { Request, Response } from "express";
 import { createAttackService, getAttacksByUserService } from "../services/attackService";
 import { AttackCreationData } from "../DTO/attackDTO";
+import { io } from "../server";
 
 export const launchAttack = async (req: Request, res: Response) => {
   try {
